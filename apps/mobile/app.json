@@ -1,0 +1,14 @@
+{
+  "expo": {
+    "name": "Ultimate Streak",
+    "slug": "ultimate-streak",
+    "version": "1.0.0",
+    "scheme": "ultimate-streak",
+    "platforms": ["ios", "android"],
+    "icon": "./assets/icon.png",
+    "splash": {
+      "backgroundColor": "#030712"
+    },
+    "plugins": ["expo-router"]
+  }
+}
