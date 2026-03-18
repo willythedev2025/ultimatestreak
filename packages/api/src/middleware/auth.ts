@@ -29,5 +29,21 @@ export async function authMiddleware(
   }
 
   req.userId = user.id;
+
+  // Ensure user exists in public.users (mirrors auth.users)
+  const { data: publicUser } = await supabase
+    .from("users")
+    .select("id")
+    .eq("id", user.id)
+    .single();
+
+  if (!publicUser) {
+    await supabase.from("users").insert({
+      id: user.id,
+      email: user.email ?? "",
+      display_name: user.user_metadata?.display_name || user.email?.split("@")[0] || "Player",
+    });
+  }
+
   next();
 }

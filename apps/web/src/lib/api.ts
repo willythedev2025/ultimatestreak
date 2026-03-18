@@ -1,6 +1,9 @@
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001";
 
-export async function apiFetch<T>(path: string, options?: RequestInit): Promise<T> {
+export async function apiFetch<T>(
+  path: string,
+  options?: RequestInit
+): Promise<T> {
   const res = await fetch(`${API_BASE}${path}`, {
     ...options,
     headers: {
@@ -15,4 +18,18 @@ export async function apiFetch<T>(path: string, options?: RequestInit): Promise<
   }
 
   return res.json();
+}
+
+export async function authApiFetch<T>(
+  path: string,
+  token: string,
+  options?: RequestInit
+): Promise<T> {
+  return apiFetch<T>(path, {
+    ...options,
+    headers: {
+      Authorization: `Bearer ${token}`,
+      ...options?.headers,
+    },
+  });
 }
